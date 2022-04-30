@@ -1,0 +1,62 @@
+/* basic tag style */
+
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    margin: 0;
+    padding: 0;
+
+    height: 100vh;
+}
+
+header {
+    position: fixed;
+    left: 0;
+    top: 0;
+
+    height: 110px;
+
+    font-size: 2vh;
+
+    background-color: white;
+    z-index: 999;
+}
+
+main {
+    margin-top: 110px;
+    padding: 10vh 0;
+
+    min-width: 100%;
+    width: fit-content;
+    min-height: 100%;
+    height: fit-content;
+
+    font-size: 1.5vh;
+
+    border: solid 1px black;
+    box-sizing: border-box;
+}
+
+footer {
+    min-width: 100%;
+    width: fit-content;
+    min-height: 8em;
+    font-size: 1.5vh;
+    border: solid 1px black;
+    box-sizing: border-box;
+}
+
+ul {
+    list-style-type: none;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+input {
+    border: solid 1px black;
+}
