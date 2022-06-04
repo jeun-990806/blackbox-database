@@ -1,0 +1,154 @@
+/* basic tag style */
+
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    margin: 0;
+    padding: 0;
+
+    height: 100vh;
+}
+
+header {
+    position: fixed;
+    left: 0;
+    top: 0;
+
+    height: 110px;
+
+    font-size: 2vh;
+
+    background-color: white;
+    z-index: 999;
+}
+
+header div {
+    float: right;
+    width: 84vw;
+    height: 55px;
+    border: solid 1px black;
+    box-sizing: border-box;
+}
+
+/* logo */
+
+#logo {
+    position: fixed;
+    left: 0;
+    top: 0;
+
+    width: 16vw;
+    height: 110px;
+
+    background-image: url('../images/logo.png');
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: right center;
+}
+
+/* login menu */
+
+#login_menu {
+    display: flex;
+    margin: 0;
+    padding: 0;
+    justify-content: flex-end;
+}
+
+#login_menu li {
+    display: flex;
+    margin: 0;
+    padding: 0 0.5em;
+
+    width: fit-content;
+    height: 55px;
+
+    align-items: center;
+
+    font-size: 14px;
+
+    box-sizing: border-box;
+}
+
+/* navigation bar */
+
+#navigation_menu {
+    display: flex;
+    margin: 0;
+    padding: 0;
+    justify-content: flex-end;
+    box-sizing: border-box;
+}
+
+#navigation_menu li {
+    display: flex;
+    margin: 0;
+    padding: 0;
+
+    width: 12vw;
+    height: 55px;
+    border: solid 1px black;
+
+    font-size: 1vw;
+    justify-content: center;
+    align-items: center;
+
+    box-sizing: border-box;
+}
+
+a:hover li {
+    color: white;
+    background-color: black;
+}
+
+main {
+    margin-top: 110px;
+    padding: 10vh 0;
+
+    min-width: 100%;
+    width: fit-content;
+    min-height: 100%;
+    height: fit-content;
+
+    font-size: 1.5vh;
+
+    border: solid 1px black;
+    box-sizing: border-box;
+}
+
+footer {
+    min-width: 100%;
+    width: fit-content;
+    min-height: 8em;
+    font-size: 1.5vh;
+    border: solid 1px black;
+    box-sizing: border-box;
+}
+
+footer p {
+    text-align: center;
+    color: gray;
+}
+
+ul {
+    list-style-type: none;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+input {
+    border: solid 1px black;
+}
+
+.hidden {
+    display: none !important;
+}
+
+.fail_hint {
+    color: maroon;
+}

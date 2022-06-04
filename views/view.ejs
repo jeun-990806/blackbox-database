@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Blackbox Database</title>
+        <link rel="stylesheet" type="text/css" href="/stylesheets/basics.css" />
+    </head>
+    <body>
+        <style>
+            .post_container {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+            }
+
+            .post_container .post_title, .post_container .post_metadata, .post_container .post_content {
+                padding: 0 1em;
+
+                width: 55em;
+                box-sizing: border-box;
+
+                border-bottom: solid 1px gainsboro;
+            }
+
+            .post_container .post_title {
+                font-weight: bold;
+            }
+
+            .post_container .post_metadata {
+                text-align: right;
+                color: gray;
+            }
+
+            .post_container .post_content {
+                min-height: 15em;
+            }
+
+            .post_container .post_actions {
+                display: flex;
+                justify-content: flex-end;
+
+                margin-top: 5px;
+
+                width: 55em;
+            }
+
+            .post_container .post_actions button {
+                margin: 0 0.5em;
+                padding: 0.5em 1em;
+
+                background-color: white;
+                border: solid 1px black;
+
+                font-size: 1.5vh;
+            }
+
+            .post_container .post_actions button:hover {
+                background-color: gainsboro;
+            }
+
+            .post_container .post_actions button:active {
+                background-color: black;
+                color: white;
+            }
+
+            .hidden {
+                display: none !important;
+            }
+        </style>
+        <%- include('./layouts/header'); -%>
+        <main>
+            <div class="post_container">
+                <div class="post_title">
+                    <p><%= locals.post_data.title %></p>
+                </div>
+                <div class="post_metadata">
+                    <p><%= locals.post_data.writer %>, <%= locals.moment(locals.post_data.posted_date).format('YYYY-MM-DD HH:mm:SS') %></p>
+                </div>
+                <div class="post_content">
+                    <p><%= locals.post_data.content %></p>
+                </div>
+                <div class="post_actions <% if(locals.logined_user !== locals.post_data.writer) { %> <%= 'hidden' %> <% } %>">
+                    <button>삭제</button>
+                    <button>수정</button>
+                </div>
+            </div>
+        </main>
+        <%- include('./layouts/footer'); -%>
+    </body>
+</html>

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Blackbox Database</title>
+        <link rel="stylesheet" type="text/css" href="/stylesheets/basics.css" />
+    </head>
+    <body>
+        <style>
+            #contents {
+                display: flex;
+                margin: 0 auto;
+
+                width: fit-content;
+
+                border: solid 1px black;
+            }
+            
+            #intro {
+                display: inline-block;
+                padding: 2em;
+
+                min-width: 30vw;
+                max-width: 100%;
+
+                border: solid 1px black;
+                text-align: center;
+
+                box-sizing: border-box;
+            }
+
+            #intro h2 {
+                margin-top: 0;
+                margin-bottom: 6vh;
+                font-size: 32px;
+            }
+
+            #intro p {
+                margin: 0.5em;
+            }
+
+            #join_form {
+                margin: 0 auto;
+                width: 100%;
+            }
+
+            #join_form td {
+                height: 4em;
+                text-align: left;
+            }
+
+            #intro input[type="text"], #intro input[type="password"] {
+                padding: 0.6em;
+                width: 100%;
+                box-sizing: border-box;
+            }
+
+            #intro input[type="submit"] {
+                padding: 0.6em;
+                margin: 3em;
+                max-width: 19em;
+                width: 60%;
+            }
+
+            footer p {
+                text-align: center;
+                color: gray;
+            }
+        </style>
+
+        <%- include('./layouts/header'); -%>
+        <main>
+            <div id="contents">
+                <div id="intro">
+                    <h2>JOIN</h2>
+                    <form action="/add_account" method="POST">
+                        <table id="join_form">
+                            <tbody>
+                                <tr>
+                                    <td>e-mail</td>
+                                    <td><input type="text" name="email" id="email" placeholder="e-mail" /></td>
+                                </tr>
+                                <tr>
+                                    <td>name</td>
+                                    <td><input type="text" name="name" id="name" placeholder="username" /></td>
+                                </tr>
+                                <tr>
+                                    <td>password</td>
+                                    <td><input type="password" name="password" id="password" placeholder="password" /></td>
+                                </tr>
+                                <tr>
+                                    <td>double check ;)</td>
+                                    <td><input type="password" id="password" placeholder="password" /></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <p><input type="submit" value="회원가입" /></p>
+                    </form>
+                </div>
+            </div>
+        </main>
+        <%- include('./layouts/footer'); -%>
+    </body>
+</html>
