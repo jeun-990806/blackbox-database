@@ -21,7 +21,7 @@
                 width: 55em;
                 box-sizing: border-box;
 
-                border-bottom: solid 1px gainsboro;
+                border-bottom: solid 1px rgb(0, 0, 0);
             }
 
             .post_container .post_title {
@@ -82,11 +82,20 @@
                     <p><%= locals.post_data.content %></p>
                 </div>
                 <div class="post_actions <% if(locals.logined_user !== locals.post_data.writer) { %> <%= 'hidden' %> <% } %>">
-                    <button>삭제</button>
-                    <button>수정</button>
+                    <button id="post_delete" post_id="<%= locals.post_data._id %>">삭제</button>
+                    <button id="post_edit">수정</button>
                 </div>
             </div>
         </main>
         <%- include('./layouts/footer'); -%>
+        <script>
+            const post_delete = document.querySelector('#post_delete');
+            const post_edit = document.querySelector('#post_edit');
+
+            post_delete.addEventListener('click', () => {
+                console.log('/view' + post_delete.getAttribute('post_id') + '/delete')
+                window.location.href='/view/' + post_delete.getAttribute('post_id') + '/delete'
+            });
+        </script>
     </body>
 </html>
