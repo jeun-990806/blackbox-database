@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Blackbox Database</title>
+        <link rel="stylesheet" type="text/css" href="/stylesheets/basics.css" />
+    </head>
+    <body>
+        <style>
+            #contents {
+                display: flex;
+                margin: 0 auto;
+
+                width: fit-content;
+                height: fit-content;
+
+                flex-direction: column;
+            }
+
+            #testcases_title {
+                display: inline-block;
+
+                width: 100%;
+                height: fit-content;
+
+                box-sizing: border-box;
+            }
+
+            #testcases_title h2 {
+                margin: 1em 0.7em;
+            }
+
+            #search_bar {
+                display: flex;
+                padding: 1em 0.5em;
+                width: 100%;
+                height: fit-content;
+
+                border-top: solid 1px black;
+                border-bottom: solid 1px black;
+                box-sizing: border-box;
+
+                align-items: center;
+            }
+
+            #search_bar span {
+                display: inline-block;
+                width: 15%;
+                text-align: center;
+            }
+
+            #search_bar_input {
+                display: flex;
+                margin: 0 1em;
+                padding-left: 1em;
+                width: 85%;
+                height: 2em;
+
+                border: solid 1px black;
+                box-sizing: border-box;
+
+                background-image: url('/images/search.png');
+                background-position: right 1em center;
+                background-repeat: no-repeat;
+
+                align-items: center;
+            }
+
+            #testcases_contents {
+                padding: 1em;
+
+                min-width: 50vw;
+            }
+
+            #problem_section {
+                display: flex;
+                margin: 1em;
+                justify-content: space-between;
+
+            }
+
+            #problem_title {
+                font-size: 24px;
+                font-weight: bold;
+            }
+
+            #problem_link a {
+                padding-right: 20px;
+
+                min-height: 20px;
+
+                color: gray !important;
+
+                background-image: url('/images/open.png');
+                background-repeat: no-repeat;
+                background-position: right bottom;
+                background-size: 16px;
+                white-space: nowrap;
+            }
+
+            #testcases_section {
+                margin: 2em 0;
+            }
+
+            .testcase {
+                display: flex;
+            }
+
+            .input,
+            .output {
+                display: inline-block;
+                padding: 0.5em;
+                width: 50%;
+
+                box-sizing: border-box;
+            }
+
+            .input_title,
+            .output_title {
+                display: inline-block;
+                padding: 0.5em;
+
+                width: 100%;
+                border-bottom: solid 1px black;
+
+                font-size: 16px;
+                font-weight: bold;
+
+                box-sizing: border-box;
+
+            }
+
+            .testcase_input {
+                margin: 1em 0;
+                padding: 1em;
+
+                width: 100%;
+                min-height: 5em;
+                box-sizing: border-box;
+
+                border: solid 1px gainsboro;
+                border-radius: 5px;
+
+                resize: none;
+            }
+
+            .testcase_input:focus {
+                background-color: gainsboro;
+            }
+
+            .options {
+                text-align: right;
+            }
+
+            .add_testcase {
+                width: 100%;
+            }
+        </style>
+
+        <%- include('./layouts/header'); -%>
+        <main>
+            <div id="contents">
+                <div id="testcases_title">
+                    <h2>테스트 케이스 추가하기</h2>
+                </div>
+            <form action="/problem/load" method="GET">
+                <div id="search_bar">
+                    <span>문제 URL</span>
+                    <input type="text" id="search_bar_input" name="problem_url">
+                </div>
+            </form>
+            <form action="/testcase/save/<%= locals.problem._id %>" method="POST">
+                <div id="testcases_contents">
+                    <% if(locals.problem) { %>
+                        <div id="problem_section">
+                            <div id="problem_info">
+                                <span id="problem_title"><%= locals.problem.title %></span>
+                                <span id="problem_link">
+                                    <a href="<%= locals.problem.link %>">problem data from <%= locals.problem.source_site %></a>
+                                </span>
+                            </div>
+                        </div>
+                        <div id="testcases_section">
+                            <div class="testcase_block">
+                                <div class="testcase">
+                                    <div class="input">
+                                        <span class="input_title">INPUT</span>
+                                        <textarea class="testcase_input" name="input"></textarea>
+                                    </div>
+                                    <div class="output">
+                                        <span class="output_title">OUTPUT</span>
+                                        <textarea class="testcase_input" name="output"></textarea>
+                                    </div>
+                                </div>
+                                <button class="add_testcase">추가하기</button>
+                            </div>
+                        </div>
+                    <% } %>
+                </div>
+            </form>
+        </main>
+        <%- include('./layouts/footer'); -%>
+    </body>
+</html>

@@ -1,18 +1,13 @@
 <header>
-    <a href="/index"><div id="logo"></div></a>
-    <div>
-        <ul id="login_menu">
-            <li class="<% if (locals.login_checked){ %> <%= 'hidden' %> <% } %>"><a href="/login">login</a></li>
-            <li class="<% if (locals.login_checked){ %> <%= 'hidden' %> <% } %>"><a href="/join">join</a></li>
-            <li class="<% if (!locals.login_checked){ %> <%= 'hidden' %> <% } %>"><a href="/logout">logout</a></li>
-        </ul>
-    </div>
-    <div>
+    <ul id="login_menu">
+        <li class="<% if (locals.logined_user){ %> <%= 'hidden' %> <% } %>"><a href="/login">login</a></li>
+        <li class="<% if (locals.logined_user){ %> <%= 'hidden' %> <% } %>"><a href="/join">join</a></li>
+        <li class="<% if (!locals.logined_user){ %> <%= 'hidden' %> <% } %>"><a href="/logout">logout</a></li>
+    </ul>
+    <div id="navigation_menu_container">
+        <a href="/index"><div id="logo"></div></a>
         <ul id="navigation_menu">
-            <li></li>
-            <li></li>
-            <li></li>
-            <a href="/testcases"><li>테스트 케이스</li></a>
+            <a href="/testcase"><li>테스트 케이스</li></a>
             <a href="/board/questions"><li>질문</li></a>
             <a href="/board/advices"><li>건의</li></a>
             <a href="/credits"><li>크레딧</li></a>

@@ -1,7 +1,7 @@
 const post = require('../models/post')
 
 module.exports.renderer = (request, response) => {
-    if(request.session.email) response.render('write', {login_checked: request.session.email})
+    if(request.session.email) response.render('write', {logined_user: request.session.email})
     else response.redirect('/error')
 }
 

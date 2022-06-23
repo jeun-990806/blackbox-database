@@ -10,5 +10,5 @@ module.exports.renderer = async (request, response) => {
         category = '질문 게시판'
 
     const post_data = await post.find({category: category}).sort({posted_date: -1})
-    response.render('board', {board_title: category, login_checked: request.session.email, posts: post_data, moment: moment})
+    response.render('board', {board_title: category, logined_user: request.session.email, posts: post_data, moment: moment})
 }

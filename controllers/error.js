@@ -1,3 +1,3 @@
 module.exports.renderer = (request, response) => {
-    response.render('error', {login_checked: request.session.email})
+    response.render('error', {logined_user: request.session.email})
 }

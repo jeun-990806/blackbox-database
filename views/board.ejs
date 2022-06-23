@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,200 +7,40 @@
         <link rel="stylesheet" type="text/css" href="/stylesheets/basics.css" />
     </head>
     <body>
-        <style>
-            main {
-                padding: 0 !important;
-            }
-            #board_title {
-                display: flex;
-                padding: 1em;
-
-                min-height: 5vw;
-
-                font-size: 20px;
-
-                border: solid 1px black;
-                align-items: flex-end;
-                box-sizing: border-box;
-
-            }
-
-            #board_menu {
-                display: flex;
-                align-items: center;
-                justify-content: center;
-            }
-
-            .option_button {
-                display: flex;
-                align-items: center;
-                margin: 1em;
-                padding: 0 1em;
-                min-height: 3em;
-
-                border: solid 1px black;
-                transition: all .3s;
-                box-sizing: border-box;
-            }
-
-            .option_button:hover {
-                background-color: black;
-                color: white;
-            }
-
-            #search {
-                max-width: 6em;
-                transition: max-width 1s;
-                overflow: hidden;
-            }
-
-            #search span {
-                white-space: nowrap;
-                min-width: fit-content;
-            }
-
-            #search input {
-                margin: 0;
-                padding: 0.1em;
-                font-size: 1.5vh;
-                margin-left: 3em;
-            }
-
-            #search:hover {
-                max-width: 25em;
-            }
-
-            #contents {
-                margin: 2vh auto;
-                padding: 0;
-
-                max-width: 80em;
-            }
-
-            #new_post {
-                display: flex;
-                padding: 3px;
-                justify-content: flex-end;
-            }
-
-            #new_post button {
-                padding: 0.5em 1em;
-
-                background-color: white;
-                border: solid 1px black;
-
-                font-size: 1.5vh;
-            }
-
-            #new_post button:hover {
-                background-color: gainsboro;
-            }
-
-            #new_post button:active {
-                background-color: black;
-                color: white;
-            }
-
-            .post {
-                display: flex;
-                justify-content: space-around;
-                height: 3em;
-                
-                align-items: center;
-
-                border-top: solid 1px gray;
-                box-sizing: border-box;
-            }
-
-            .post:hover {
-                background-color: ghostwhite;
-            }
-
-            .post_date {
-                display: inline-block;
-                max-width: 10%;
-                min-width: fit-content;
-                text-align: center;
-            }
-
-            .post_title {
-                display: inline-block;
-                width: 30em;
-                overflow: hidden;
-            }
-
-            .post_writer {
-                display: inline-block;
-                max-width: 10%;
-                width: 12em;
-                text-align: center;
-                overflow: hidden;
-            }
-
-            #post_remote {
-                display: flex;
-
-                margin: 0 auto;
-                padding-top: 3em;
-
-                justify-content: center;
-
-                border-top: solid 1px gray;
-            }
-
-            .post_remote_button {
-                display: inline-block;
-                width: 1.5em;
-                height: 1.5em;
-
-                margin: 0 2px;
-
-                text-align: center;
-
-                border: solid 1px black;
-                box-sizing: border-box;
-            }
-            
-            footer p {
-                text-align: center;
-                color: gray;
-            }
-        </style>
-
         <%- include('./layouts/header'); -%>
         <main>
-            <div id="board_title">
-                <span><%= board_title %></span>
-            </div>
-            <div id="board_menu">
-                <div class="option_button">전체보기</div>
-                <div class="option_button">내가 쓴 글 보기</div>
-                <div class="option_button" id="search">
-                    <span>검색하기</span>
-                    <span id="search_input"><input type="text" placeholder="검색어를 입력하세요"/></span>
+            <div class="contents">
+                <div id="board_title">
+                    <span><%= board_title %></span>
                 </div>
-            </div>
-            <div id="contents">
-                <div id="new_post">
-                    <button onclick="location.href='/write';">새 글 작성</button>
-                </div>
-                <% for (var i=0; i<locals.posts.length; i++){ %>
-                    <div class="post">
-                        <span class="post_date"><%= moment(posts[i].posted_date).format('YYYY-MM-DD HH:mm:SS') %></span>
-                        <a href="/view/<%=locals.posts[i]._id%>"><span class="post_title"><%= posts[i].title %></span></a>
-                        <span class="post_writer"><%= posts[i].writer %></span>
+                <div id="board_menu">
+                    <div class="option_button">전체보기</div>
+                    <div class="option_button">내가 쓴 글 보기</div>
+                    <div class="option_button" id="search">
+                        <span>검색하기</span>
+                        <span id="search_input"><input type="text" placeholder="검색어를 입력하세요"/></span>
                     </div>
-                <% } %>
-                <div id="post_remote">
-                    <div class="post_remote_button">◁</div>
-                    <div class="post_remote_button">1</div>
-                    <div class="post_remote_button">2</div>
-                    <div class="post_remote_button">▷</div>
+                </div>
+                <div id="board_content_container">
+                    <div id="new_post">
+                        <button onclick="location.href='/write';">새 글 작성</button>
+                    </div>
+                    <% for (var i=0; i<locals.posts.length; i++){ %>
+                        <div class="post">
+                            <span class="post_date"><%= moment(posts[i].posted_date).format('YYYY-MM-DD HH:mm:SS') %></span>
+                            <a href="/view/<%=locals.posts[i]._id%>"><span class="post_title"><%= posts[i].title %></span></a>
+                            <span class="post_writer"><%= posts[i].writer %></span>
+                        </div>
+                    <% } %>
+                    <div id="post_remote">
+                        <div class="post_remote_button">◁</div>
+                        <div class="post_remote_button">1</div>
+                        <div class="post_remote_button">2</div>
+                        <div class="post_remote_button">▷</div>
+                    </div>
                 </div>
             </div>
         </main>
-        <footer>
-            <p>Copyright © 2022 by return-zero; project.</p>
-        </footer>
+        <%- include('./layouts/footer'); -%>
     </body>
 </html>

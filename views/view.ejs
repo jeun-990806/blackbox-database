@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -15,7 +15,7 @@
                 align-items: center;
             }
 
-            .post_container .post_title, .post_container .post_metadata, .post_container .post_content {
+            .post_container .post_title, .post_container .post_metadata, .post_container .post_content, .comment_container {
                 padding: 0 1em;
 
                 width: 55em;
@@ -44,6 +44,8 @@
                 margin-top: 5px;
 
                 width: 55em;
+                
+                border-bottom: solid 1px black;
             }
 
             .post_container .post_actions button {
@@ -51,22 +53,65 @@
                 padding: 0.5em 1em;
 
                 background-color: white;
-                border: solid 1px black;
+                border: none;
 
                 font-size: 1.5vh;
             }
 
-            .post_container .post_actions button:hover {
-                background-color: gainsboro;
+            .post_container .post_actions button {
+                cursor: pointer;
             }
 
-            .post_container .post_actions button:active {
-                background-color: black;
-                color: white;
+            .new_comment {
+                display: flex;
+                flex-direction: column;
+
+                padding-bottom: 1em;
+
+                border-bottom: solid 1px gainsboro;
+            }
+
+            .new_comment_inputs {
+                display: flex;
+            }
+
+            .new_comment_inputs form {
+                width: 100%;
+            }
+
+            .new_comment_inputs textarea {
+                resize: none;
+
+                width: 100%;
+                box-sizing: border-box;
+                
+                border: solid 1px black;
+            }
+
+            .new_comment_inputs input {
+                margin-left: 0.1em;
+
+                box-sizing: border-box;
+
+                border: solid 1px black;
+                background-color: white;
+
+                font-size: 10px;
+
+                white-space: nowrap;
             }
 
             .hidden {
                 display: none !important;
+            }
+
+            .comment {
+                padding: 1em 0;
+                border-bottom: solid 1px gainsboro;
+            }
+
+            .comment:last-child {
+                border: none;
             }
         </style>
         <%- include('./layouts/header'); -%>
@@ -85,15 +130,33 @@
                     <button id="post_delete" post_id="<%= locals.post_data._id %>">삭제</button>
                     <button id="post_edit">수정</button>
                 </div>
+                <div class="comment_container">
+                    <div class="new_comment <% if(!locals.logined_user) { %> <%= 'hidden' %> <% } %>">
+                        <p><%= locals.logined_user %>: </p>
+                        <form class="new_comment_inputs" action="/add_comment/<%= locals.post_data._id %>" method="POST">
+                            <textarea name="comment_content"></textarea>
+                            <input type="submit" value="달기" id="add_comment">
+                        </form>
+                    </div>
+                    <div class="comments_list">
+                        <% for (var i=0; locals.comments && i<locals.comments.length; i++){ %>
+                            <div class="comment">
+                                <span><%= locals.comments[i].writer %></span>
+                                <span>(<%= locals.moment(locals.comments[i].written_date).format('YYYY-MM-DD HH:mm:SS') %>)</span>
+                                <p><%= locals.comments[i].contents %></p>
+                            </div>
+                        <% } %>
+                    </div>
+                </div>
             </div>
         </main>
         <%- include('./layouts/footer'); -%>
         <script>
             const post_delete = document.querySelector('#post_delete');
             const post_edit = document.querySelector('#post_edit');
+            const comment_add = document.querySelector('#add_comment');
 
             post_delete.addEventListener('click', () => {
-                console.log('/view' + post_delete.getAttribute('post_id') + '/delete')
                 window.location.href='/view/' + post_delete.getAttribute('post_id') + '/delete'
             });
         </script>

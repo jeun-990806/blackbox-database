@@ -1,76 +1,23 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Blackbox Database</title>
         <link rel="stylesheet" type="text/css" href="/stylesheets/basics.css" />
-        <link rel="stylesheet" type="text/css" href="stylesheets/header.css" />
     </head>
     <body>
-        <style>
-            #contents {
-                display: flex;
-                margin: 0 auto;
-
-                width: fit-content;
-
-                border: solid 1px black;
-            }
-            
-            #intro {
-                display: inline-block;
-                padding: 2em;
-
-                min-width: 30vw;
-                width: fit-content;
-
-                border: solid 1px black;
-                text-align: center;
-
-                box-sizing: border-box;
-            }
-
-            #intro h2 {
-                margin-top: 0;
-                margin-bottom: 2em;
-                font-size: 32px;
-            }
-
-            #intro p {
-                margin: 0.5em;
-            }
-
-            #intro input {
-                padding: 0.6em;
-                width: 19em;
-                box-sizing: border-box;
-            }
-
-            #account_menu {
-                margin-top: 1em !important;
-                margin-bottom: 3em !important;
-                text-align: right;
-                color: gray;
-            }
-
-            footer p {
-                text-align: center;
-                color: gray;
-            }
-        </style>
-
         <%- include('./layouts/header'); -%>
         <main>
-            <div id="contents">
-                <div id="intro">
+            <div class="contents">
+                <div id="login_input_container">
                     <h2>LOGIN</h2>
                         <form action="/login_check" method="POST">
                         <p><input type="text" name="email" id="email" placeholder="e-mail" /></p>
                         <p><input type="password" name="password" id="password" placeholder="password" /></p>
                         <p><input type="submit" value="login" /></p>
                     </form>
-                    <p class="fail_hint"><%= locals.hint %></p>
+                    <p class="warning"><%= locals.hint %></p>
                 </div>
             </div>
         </main>

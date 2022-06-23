@@ -1,3 +1,3 @@
 module.exports.renderer = (request, response) => {
-    response.render('credit', {login_checked: request.session.email})
+    response.render('credit', {logined_user: request.session.email})
 }
