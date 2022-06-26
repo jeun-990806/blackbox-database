@@ -116,14 +116,14 @@ module.exports.remove = (request, response) => {
 }
 
 const load_problem = async (problem_url) => {
-    const service = new chrome.ServiceBuilder('./chromedriver.exe').build()
+    const service = new chrome.ServiceBuilder(process.env.CHROMEDRIVER_PATH).build()
     
     try {
         chrome.setDefaultService(service)
     } catch (error) {
         console.log(error)
     }
-    const driver = new selenium.Builder().forBrowser('chrome').setChromeOptions(new chrome.Options().headless()).build()
+    const driver = new selenium.Builder().forBrowser('chrome').setChromeOptions(new chrome.Options().headless().setChromeBinaryPath(process.env.GOOGLE_CHROME_BIN)).build()
     try {
         await driver.get(problem_url)
         const title = await driver.findElement(selenium.By.css('#problem_title')).getText()
