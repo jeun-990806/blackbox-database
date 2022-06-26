@@ -15,7 +15,7 @@ app.use(session({
 
 app.set('view engine', 'ejs')
 
-mongoose.connect('mongodb://localhost:27017/black_box_database', {useNewUrlParser: true});
+mongoose.connect('mongodb+srv://jeun:returnZeroProj385939@blackbox-database.vnmpj.mongodb.net/?retryWrites=true&w=majority', {useNewUrlParser: true});
 
 const controllers = {
     main_page: require('./controllers/main_page'),
