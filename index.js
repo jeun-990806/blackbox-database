@@ -15,7 +15,7 @@ app.use(session({
 
 app.set('view engine', 'ejs')
 
-mongoose.connect('mongodb+srv://jeun:returnZeroProj385939@blackbox-database.vnmpj.mongodb.net/?retryWrites=true&w=majority', {useNewUrlParser: true});
+mongoose.connect(process.env.MONGODB_URL, {useNewUrlParser: true});
 
 const controllers = {
     main_page: require('./controllers/main_page'),
@@ -31,10 +31,7 @@ const controllers = {
     error: require('./controllers/error'),
 }
 
-const crawling_test = require('./test')
-
-let port = process.env.PORT
-if(port === null || port === '') port = 4040
+let port = !process.env.PORT ? 4040 : process.env.PORT
 
 app.listen(port)
 
@@ -70,8 +67,6 @@ app.get('/testcase/remove/:problem_id/:testcase_id', controllers.testcase.remove
 app.get('/source/add/:problem_id', controllers.source.renderer)
 app.post('/source/save/:problem_id', controllers.source.add)
 app.get('/error', controllers.error.renderer)
-
-app.get('/test', crawling_test)
 
 app.use((request, response, next) => {
     console.log('error: ' + request.url)
