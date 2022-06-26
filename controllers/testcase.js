@@ -3,29 +3,34 @@ const chrome = require('selenium-webdriver/chrome')
 const account = require('../models/account')
 const problem = require('../models/problem')
 const testcase = require('../models/testcase')
+const source = require('../models/source')
 
 module.exports.renderer = {
     search_page: (request, response) => { response.render('testcase', {logined_user: request.session.email}) },
-    view_page: (request, response) => {
+    view_page: async (request, response) => {
         problem.findById(request.params.id, 
-            (error, element) => {
+            async (error, element) => {
                 if(error) console.log(error)
                 if(element){
+                    const answer_source = await source.findOne({problem_id: element._id})
                     testcase.find({problem_id: element._id}).sort({recommendation: -1}).exec(
                         (error, testcase_data) => {
                             if(error) console.log(error)
-                            if(testcase_data) response.render('testcase', {logined_user: request.session.email, problem: element, testcases: testcase_data})
-                            else response.render('testcase', {logined_user: request.session.email, problem: element})
+                            if(testcase_data) response.render('testcase', {logined_user: request.session.email, problem: element, testcases: testcase_data, source: answer_source})
+                            else response.render('testcase', {logined_user: request.session.email, problem: element, source: answer_source})
                         }
                     )
                 } else response.redirect('/error')
         })
     },
     add_page: (request, response) => {
+        var message = ''
+        if(request.query.is_failed === 'true') message = '잘못된 테스트케이스입니다.'
         problem.findById(request.params.id, 
-            (error, element) => {
+            async (error, element) => {
+                const answer_source = await source.findOne({problem_id: element._id})
                 if(error) console.log(error)
-                if(element) response.render('add_testcase', {logined_user: request.session.email, problem: element})
+                if(element) response.render('add_testcase', {logined_user: request.session.email, problem: element, has_answer: answer_source, test_result: message})
                 else response.redirect('/testcase')
             }
         )

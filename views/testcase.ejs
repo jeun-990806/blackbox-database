@@ -125,7 +125,10 @@
 
             .input,
             .output {
-                display: inline-block;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+
                 padding: 0.5em;
                 width: 50%;
 
@@ -152,6 +155,7 @@
                 padding: 1em;
                 width: 100%;
                 min-height: 5em;
+                height: 100%;
                 background-color: gainsboro;
                 border-radius: 5px;
                 box-sizing: border-box;
@@ -226,7 +230,11 @@
                         <% if(locals.logined_user) { %>
                             <div id="user_controls">
                                 <button id="add_testcase" onClick="location.href='/testcase/add/<%= locals.problem._id %>'">테스트 케이스 추가</button>
+                                <% if(!locals.source) { %>
                                 <button id="add_source" onClick="location.href='/source/add/<%= locals.problem._id %>'">정답 소스 코드 추가</button>
+                                <% }else{ %>
+                                <button id="add_source" disabled="true">정답 소스 코드 있음</button>
+                                <% } %>
                             </div>
                         <% } %>
                     </div>

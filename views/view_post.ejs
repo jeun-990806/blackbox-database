@@ -113,6 +113,14 @@
             .comment:last-child {
                 border: none;
             }
+
+            .comment_controls {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+
+
         </style>
         <%- include('./layouts/header'); -%>
         <main>
@@ -127,13 +135,13 @@
                     <p><%= locals.post_data.content %></p>
                 </div>
                 <div class="post_actions <% if(locals.logined_user !== locals.post_data.writer) { %> <%= 'hidden' %> <% } %>">
-                    <button id="post_delete" post_id="<%= locals.post_data._id %>">삭제</button>
+                    <button id="post_delete" onclick="location.href='/post/delete/<%= locals.post_data._id %>'">삭제</button>
                     <button id="post_edit">수정</button>
                 </div>
                 <div class="comment_container">
                     <div class="new_comment <% if(!locals.logined_user) { %> <%= 'hidden' %> <% } %>">
                         <p><%= locals.logined_user %>: </p>
-                        <form class="new_comment_inputs" action="/add_comment/<%= locals.post_data._id %>" method="POST">
+                        <form class="new_comment_inputs" action="/comment/add/<%= locals.post_data._id %>" method="POST">
                             <textarea name="comment_content"></textarea>
                             <input type="submit" value="달기" id="add_comment">
                         </form>
@@ -141,8 +149,12 @@
                     <div class="comments_list">
                         <% for (var i=0; locals.comments && i<locals.comments.length; i++){ %>
                             <div class="comment">
-                                <span><%= locals.comments[i].writer %></span>
-                                <span>(<%= locals.moment(locals.comments[i].written_date).format('YYYY-MM-DD HH:mm:SS') %>)</span>
+                                <div class="comment_controls">
+                                    <span><%= locals.comments[i].writer %> (<%= locals.moment(locals.comments[i].written_date).format('YYYY-MM-DD HH:mm:SS') %>)</span>
+                                    <% if(locals.comments[i].writer === locals.logined_user) { %>
+                                        <button type="text-button" class="delete_comment" onclick="location.href='/comment/delete/<%= locals.post_data._id %>/<%= locals.comments[i]._id %>'">×</button>
+                                    <% } %>
+                                </div>
                                 <p><%= locals.comments[i].contents %></p>
                             </div>
                         <% } %>
@@ -151,14 +163,5 @@
             </div>
         </main>
         <%- include('./layouts/footer'); -%>
-        <script>
-            const post_delete = document.querySelector('#post_delete');
-            const post_edit = document.querySelector('#post_edit');
-            const comment_add = document.querySelector('#add_comment');
-
-            post_delete.addEventListener('click', () => {
-                window.location.href='/view/' + post_delete.getAttribute('post_id') + '/delete'
-            });
-        </script>
     </body>
 </html>

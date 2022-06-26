@@ -22,13 +22,15 @@
                     </div>
                 </div>
                 <div id="board_content_container">
-                    <div id="new_post">
-                        <button onclick="location.href='/write';">새 글 작성</button>
-                    </div>
+                    <% if(locals.logined_user) { %>
+                        <div id="new_post">
+                            <button onclick="location.href='/post/write'">새 글 작성</button>
+                        </div>
+                    <% } %>
                     <% for (var i=0; i<locals.posts.length; i++){ %>
                         <div class="post">
                             <span class="post_date"><%= moment(posts[i].posted_date).format('YYYY-MM-DD HH:mm:SS') %></span>
-                            <a href="/view/<%=locals.posts[i]._id%>"><span class="post_title"><%= posts[i].title %></span></a>
+                            <a href="/post/view/<%=locals.posts[i]._id%>"><span class="post_title"><%= posts[i].title %></span></a>
                             <span class="post_writer"><%= posts[i].writer %></span>
                         </div>
                     <% } %>

@@ -13,15 +13,6 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.29.0/codemirror.css">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.29.0/mode/javascript/javascript.js"></script>
         <script>
-            function show_results(){
-                setTimeout(2)
-                console.log(document.getElementById('search_bar_input').innerHTML);
-                if(document.getElementById('search_bar_input').innerHTML == '2195'){
-                    document.getElementById('search_result_list').style.display = 'block';
-                }else{
-                    document.getElementById('search_result_list').style.display = 'none';
-                };
-            }
             window.onload = function () {
                 var editor = CodeMirror.fromTextArea($("#editor")[0], {
                     lineNumbers: true,
@@ -41,7 +32,6 @@
                 width: fit-content;
                 height: fit-content;
 
-                border: solid 1px black;
                 flex-direction: column;
             }
             
@@ -51,7 +41,6 @@
                 width: 100%;
                 height: fit-content;
 
-                border: solid 1px black;
                 box-sizing: border-box;
             }
 
@@ -65,7 +54,8 @@
                 width: 100%;
                 height: fit-content;
 
-                border: solid 1px black;
+                border-top: solid 1px black;
+                border-bottom: solid 1px black;
                 box-sizing: border-box;
 
                 align-items: center;
@@ -82,12 +72,12 @@
                 margin: 0 1em;
                 padding-left: 1em;
                 width: 85%;
-                height: 2.5em;
+                height: 2em;
 
                 border: solid 1px black;
                 box-sizing: border-box;
 
-                background-image: url('./images/search.png');
+                background-image: url('/images/search.png');
                 background-position: right 1em center;
                 background-repeat: no-repeat;
 
@@ -98,16 +88,14 @@
                 padding: 1em;
 
                 min-width: 50vw;
-                border: solid 1px black;
             }
 
-            #problem_block {
+            #problem_section {
                 display: flex;
-                
-                margin: 1em;
-                flex-direction: column;
                 justify-content: space-between;
+                flex-direction: column;
 
+                margin: 1em;
             }
 
             #problem_title {
@@ -120,12 +108,13 @@
 
                 min-height: 20px;
 
-                color: gray;
+                color: gray !important;
 
-                background-image: url('./images/open.png');
+                background-image: url('/images/open.png');
                 background-repeat: no-repeat;
                 background-position: right bottom;
                 background-size: 16px;
+                white-space: nowrap;
             }
 
             #check_result {
@@ -140,9 +129,15 @@
             }
 
             .CodeMirror {
-                border: solid 1px black;
                 height: auto;
                 width: 100%;
+
+                border: solid 1px black;
+
+                font-family: 'consolas';
+                font-size: 10px;
+                word-spacing: 0.3em;
+                letter-spacing: 0.1em;
             }
 
             #commands {
@@ -158,94 +153,44 @@
                 border: solid 1px black;
             }
 
-            footer p {
-                text-align: center;
-                color: gray;
-            }
-
-            #search_result_list {
-                    display: none;
-                    position: relative;
-                    z-index: 3;
-                    padding: 1em;
-
-                    width: 100%;
-
-                    border: solid 1px black;
-                    background-color: white;
-                    box-sizing: border-box;
-            }
-
-            .search_result_source {
-                padding: 0.2em;
-
-                background-color: rgb(120, 197, 197);
-                border-radius: 5px;
-            }
-
-            .search_result_code_exist {
-                padding: 0.2em;
-
-                color: white;
-                font-weight: bold;
-                background-color: rgb(39, 107, 134);
-                border-radius: 5px;
-            }
-
-            .search_result_title {
-                font-size: 16px;
-                font-weight: bold;
-            }
-
-            .search_result_info {
-                color: gray;
-            }
-
-            .search_result_testcases {
-                font-weight: bold;
-            }
         </style>
 
         <%- include('./layouts/header'); -%>    
         <main>
             <div id="contents">
                 <div id="testcases_title">
-                    <h2>정답 소스 코드 등록하기</h2>
+                    <h2>정답 소스 코드 추가하기</h2>
                 </div>
-                <div id="search_bar">
-                    <span>문제 URL</span>
-                    <div id="search_bar_input" contentEditable="true" onkeyup="show_results()"></div>
-                </div>
-                <div id="search_result_list">
-                    <div class="search_result">
-                        <span class="search_result_source">baekjoon</span>
-                        <span class="search_result_code_exist">정답 코드 있음</span>
-                        <span class="search_result_title">2195번: 문자열 복사</span>
-                        <span class="search_result_info">정답률 45%</span> | 
-                        <span class="search_result_info">정답 제출 27428명</span>
-                        <span class="search_result_testcases">(1)</span>
+                <form action="/problem/load" method="GET">
+                    <div id="search_bar">
+                        <span>문제 URL</span>
+                        <input type="text" id="search_bar_input" name="problem_url">
                     </div>
-                </div>
-                <div id="testcases_contents">
-                    <div id="problem_block">
-                        <div id="problem_info">
-                            <span id="problem_title">2195번: 문자열 복사</span>
-                            <span id="problem_link">from baekjoon online judge</span>
+                </form>
+                <form action="/source/save/<%= locals.problem._id %>" method="POST">
+                    <div id="testcases_contents">
+                        <div id="problem_section">
+                            <div id="problem_info">
+                                <span id="problem_title"><%= locals.problem.title %></span>
+                                <span id="problem_link">
+                                    <a href="<%= locals.problem.link %>">problem data from <%= locals.problem.source_site %></a>
+                                </span>
+                            </div>
+                            <div id="warning">
+                                <p> > 작성하신 정답 소스는 해당 문제를 보관 중인 온라인 저지 사이트에서 <b>채점을 거친 뒤</b> 등록합니다.</p>
+                                <p> > 등록된 소스는 다른 사용자가 열람할 수 없으며, 테스트 케이스 검증 또는 사용자 테스트 용도로만 이용됩니다.</p>
+                                <p> > <b>등록을 마친 소스는 삭제할 수 없습니다.</b> 문제가 발생한 경우 문의 게시판에 남겨 주세요.</p>
+                            </div>
                         </div>
-                        <div id="warning">
-                            <p> > 작성하신 정답 소스는 해당 문제를 보관 중인 온라인 저지 사이트에서 <b>채점을 거친 뒤</b> 등록합니다.</p>
-                            <p> > 등록된 소스는 다른 사용자가 열람할 수 없으며, 테스트 케이스 검증 또는 사용자 테스트 용도로만 이용됩니다.</p>
-                            <p> > <b>등록을 마친 소스는 삭제할 수 없습니다.</b> 문제가 발생한 경우 문의 게시판에 남겨 주세요.</p>
+                        <div id="check_result"></div>
+                        <div id="source_block">
+                            <textarea id="editor" style="font-family: 'consolas';" name="source"></textarea>
+                        </div>
+                        <div id="commands">
+                            <input id="submit_source" type="submit" value="등록">
                         </div>
                     </div>
-                    <div id="check_result"></div>
-                    <div id="source_block">
-                        <textarea id="editor"></textarea>
-                    </div>
-                    <div id="commands">
-                        <input id="submit_source" type="submit" value="등록" onclick="check_answer_code()"/>
-                    </div>
-                </div>
+                </form>
             </div>
         </main>
         <%- include('./layouts/footer'); -%>

@@ -75,9 +75,10 @@
 
             #problem_section {
                 display: flex;
-                margin: 1em;
                 justify-content: space-between;
-
+                flex-direction: column;
+                
+                margin: 1em;
             }
 
             #problem_title {
@@ -164,41 +165,48 @@
                 <div id="testcases_title">
                     <h2>테스트 케이스 추가하기</h2>
                 </div>
-            <form action="/problem/load" method="GET">
-                <div id="search_bar">
-                    <span>문제 URL</span>
-                    <input type="text" id="search_bar_input" name="problem_url">
-                </div>
-            </form>
-            <form action="/testcase/save/<%= locals.problem._id %>" method="POST">
-                <div id="testcases_contents">
-                    <% if(locals.problem) { %>
-                        <div id="problem_section">
-                            <div id="problem_info">
-                                <span id="problem_title"><%= locals.problem.title %></span>
-                                <span id="problem_link">
-                                    <a href="<%= locals.problem.link %>">problem data from <%= locals.problem.source_site %></a>
-                                </span>
-                            </div>
-                        </div>
-                        <div id="testcases_section">
-                            <div class="testcase_block">
-                                <div class="testcase">
-                                    <div class="input">
-                                        <span class="input_title">INPUT</span>
-                                        <textarea class="testcase_input" name="input"></textarea>
-                                    </div>
-                                    <div class="output">
-                                        <span class="output_title">OUTPUT</span>
-                                        <textarea class="testcase_input" name="output"></textarea>
-                                    </div>
+                <form action="/problem/load" method="GET">
+                    <div id="search_bar">
+                        <span>문제 URL</span>
+                        <input type="text" id="search_bar_input" name="problem_url">
+                    </div>
+                </form>
+                <form action="/testcase/save/<%= locals.problem._id %>" method="POST">
+                    <div id="testcases_contents">
+                        <% if(locals.problem) { %>
+                            <div id="problem_section">
+                                <div id="problem_info">
+                                    <span id="problem_title"><%= locals.problem.title %></span>
+                                    <span id="problem_link">
+                                        <a href="<%= locals.problem.link %>">problem data from <%= locals.problem.source_site %></a>
+                                    </span>
                                 </div>
-                                <button class="add_testcase">추가하기</button>
+                                <div id="warning">
+                                    <p> > 띄어쓰기, 공백 등에 주의하여 테스트케이스를 입력해주세요.</p>
+                                    <p> > 사용자 신고 누적 등의 이유로 임의로 삭제될 수 있습니다.</p>
+                                    <% if(locals.has_answer){ %> <p> > 본 문제는 정답 코드가 등록되어 있습니다. 테스트케이스 등록 전 검증 단계를 거칩니다.</p> <% } %>
+                                </div>
                             </div>
-                        </div>
-                    <% } %>
-                </div>
-            </form>
+                            <div id="testcases_section">
+                                <div class="testcase_block">
+                                    <div class="testcase">
+                                        <div class="input">
+                                            <span class="input_title">INPUT</span>
+                                            <textarea class="testcase_input" name="input"></textarea>
+                                        </div>
+                                        <div class="output">
+                                            <span class="output_title">OUTPUT</span>
+                                            <textarea class="testcase_input" name="output"></textarea>
+                                        </div>
+                                    </div>
+                                    <button class="add_testcase">추가하기</button>
+                                </div>
+                                <p class="align_text_right warning"> <%= locals.test_result %> </p>
+                            </div>
+                        <% } %>
+                    </div>
+                </form>
+            </div>
         </main>
         <%- include('./layouts/footer'); -%>
     </body>

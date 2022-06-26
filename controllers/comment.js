@@ -1,6 +1,6 @@
 const comment = require('../models/comment')
 
-module.exports.add_comment = (request, response) => {
+module.exports.add = (request, response) => {
     comment.create(
         {
             writer: request.session.email,
@@ -9,7 +9,20 @@ module.exports.add_comment = (request, response) => {
         }, 
         (error, account) => {
             if(error) console.log(error)
-            response.redirect('/view/' + request.params.post_id)
+            response.redirect('/post/view/' + request.params.post_id)
+        }
+    )
+}
+
+module.exports.delete = (request, response) => {
+    comment.deleteOne(
+        {
+            _id: request.params.comment_id,
+            writer: request.session.email
+        },
+        (error, result) => {
+            if(error) console.log(error)
+            response.redirect('/post/view/' + request.params.post_id)
         }
     )
 }

@@ -45,13 +45,22 @@ input, button {
 
 input[type="submit"], button {
     padding: 0.5em;
-
     font-size: 9px;
 }
 
-input[type="submit"]:hover, button:hover {
+button:disabled {
+    background-color: gainsboro;
+    border: gainsboro;
+}
+
+input[type="submit"]:hover, button:enabled:hover {
     background-color: gainsboro;
     cursor: pointer;
+}
+
+button[type="text-button"] {
+    border: none !important;
+    background: none !important;
 }
 
 *:focus {
