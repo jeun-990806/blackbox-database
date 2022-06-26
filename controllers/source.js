@@ -37,7 +37,7 @@ module.exports.validate_testcase = async (request, response, next) => {
         const input = request.body.input
         const output = request.body.output
         
-        const tmp_file_name = '/tmp/tmp_code'
+        const tmp_file_name = process.env.TMP_DIR + 'tmp_code'
 
         make_c_file(tmp_file_name, source_code)
         compile(tmp_file_name)
