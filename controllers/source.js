@@ -1,6 +1,7 @@
 const child_process = require('child_process')
 const fs = require('fs')
 
+const account = require('../models/account')
 const problem = require('../models/problem')
 const source = require('../models/source')
 
@@ -25,9 +26,12 @@ module.exports.add = (request, response) => {
         }
         , (error, result) => {
             if(error) console.log(error)
+            if(result) account.updateOne({email: request.session.email}, {$inc: {source_contribution_count: 1}}).exec(
+                () => response.redirect('/testcase')
+            )
+            else response.redirect('/testcase')
         }
     )
-    response.redirect('/testcase')
 }
 
 module.exports.validate_testcase = async (request, response, next) => {

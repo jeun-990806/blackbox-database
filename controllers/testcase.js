@@ -61,27 +61,24 @@ module.exports.add = (request, response) => {
         (error, element) => {
             if(error) console.log(error)
             if(!element) response.redirect('/error')
-            else response.redirect('/testcase/view/' + request.params.id)
+            else {
+                account.updateOne({email: request.session.email}, {$inc: {tc_contribution_count: 1}}).exec(
+                    () => response.redirect('/testcase/view/' + request.params.id)
+                )
+            }
         }
     )
 }
 
 module.exports.recommend = (request, response) => {
-    testcase.findById(request.params.testcase_id, (error, target) => {
-        if(error){
-            console.log(error)
-            response.redirect('/error')
-        } else {
-            testcase.updateOne({_id: request.params.testcase_id}, {$set: {recommendation: target.recommendation + 1}}, 
-                (error, result) => {
-                    if(error){
-                        console.log(error)
-                        response.redirect('/error')
-                    }
-                    else response.redirect('/testcase/view/' + request.params.problem_id)
-            })
-        }
-    })
+    testcase.updateOne({_id: request.params.testcase_id}, {$inc: {recommendation: 1}}, 
+        (error, result) => {
+            if(error){
+                console.log(error)
+                response.redirect('/error')
+            }
+            else response.redirect('/testcase/view/' + request.params.problem_id)
+        })
 }
 
 module.exports.report = (request, response) => {

@@ -17,12 +17,18 @@ const account_schema = new schema({
         type: String,
         required: true
     },
-    source_distribution_count: {
+    source_contribution_count: {
         type: Number,
         default: 0
     },
-    tc_distribution_count: Number,
-    reported_count: Number
+    tc_contribution_count: {
+        type: Number,
+        default: 0
+    },
+    reported_count: {
+        type: Number,
+        default: 0
+    }
 })
 
 account_schema.pre('save', function(next) {

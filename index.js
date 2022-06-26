@@ -2,6 +2,10 @@ const express = require('express')
 const mongoose = require('mongoose')
 const session = require('express-session')
 
+/* default setting */
+if(!process.env.MONGODB_URL) process.env.MONGODB_URL = 'mongodb://localhost:27017/black_box_database'
+if(!process.env.TMP_DIR) process.env.TMP_DIR = ''
+
 const app = new express()
 
 app.use(express.static('assets'))

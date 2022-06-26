@@ -16,20 +16,17 @@
                     transform: translate(0, -30vw);
                 } 
             }
-
             main {
                 padding: 0 !important;
             }
-            #board_title {
+            #menu_title {
                 display: flex;
-                padding: 1em;
-
-                min-height: 5vw;
+                justify-content: center;
 
                 font-size: 20px;
 
                 align-items: flex-end;
-                justify-content: center;
+                
                 box-sizing: border-box;
 
             }
@@ -80,15 +77,11 @@
                 width: 100%;
                 height: 40vh;
             }
-            footer p {
-                text-align: center;
-                color: gray;
-            }
         </style>
 
         <%- include('./layouts/header'); -%>
         <main>
-            <div id="board_title">
+            <div id="menu_title">
                 <span>크레딧</span>
             </div>
 
@@ -104,11 +97,11 @@
                         <p><br /></p>
                         <p>[best test case contributor]</p>
                         <p>---</p>
-                        <p>kjeun990806@gmail.com</p>
+                        <p><%= locals.best_tc_contributor %></p>
                         <p><br /></p>
                         <p>[best answer code contributor]</p>
                         <p>---</p>
-                        <p>kjeun990806@gmail.com</p>
+                        <p><%= locals.best_ac_contributor %></p>
                         
                     </div>
                 </div>

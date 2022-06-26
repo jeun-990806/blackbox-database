@@ -11,27 +11,10 @@
         <main>
             <div class="contents">
                 <div id="main_content_container">
-                    <div class="content_box align_text_center border_right">
+                    <div class="content_box align_text_center border_bottom">
                         <h2>BLACK BOX DATABASE</h2>
                         <p class="text_small">프로그래밍 문제들의 정답과 테스트 케이스를 보관합니다.</p>
-                    </div>
-                    <div class="content_box">
-                        <div class="content_box border_bottom">
-                            <div class="box_title">
-                                <span class="text_normal">새로 등록된 테스트 케이스</span>
-                            </div>
-                            <div class="box_contents">
-    
-                            </div>
-                        </div>
-                        <div class="content_box">
-                            <div class="box_title">
-                                <span class="text_normal">새로 등록된 질문</span>
-                            </div>
-                            <div class="box_contents">
-                                
-                            </div>
-                        </div>
+                        <p class="text_small">현재 <% if(!locals.testcases_count) { %>0<% } else { %><%= locals.testcases_count %><% } %>개의 테스트케이스를 보유중입니다.</p>
                     </div>
                 </div>
             </div>

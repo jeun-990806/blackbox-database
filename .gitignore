@@ -1,1 +1,7 @@
 node_modules
+
+test.js
+env_vars.js
+
+*.c
+*.exe
