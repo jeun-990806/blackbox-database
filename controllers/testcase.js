@@ -123,7 +123,11 @@ const load_problem = async (problem_url) => {
     } catch (error) {
         console.log(error)
     }
-    const driver = new selenium.Builder().forBrowser('chrome').setChromeOptions(new chrome.Options().headless().setChromeBinaryPath(process.env.GOOGLE_CHROME_BIN)).build()
+    const driver_options = new chrome.Options()
+    driver_options.addArguments('--headless')
+    driver_options.addArguments('--disable-gpu')
+    driver_options.addArguments('--no-sandbox')
+    const driver = new selenium.Builder().forBrowser('chrome').setChromeOptions(driver_options).build()
     try {
         await driver.get(problem_url)
         const title = await driver.findElement(selenium.By.css('#problem_title')).getText()
