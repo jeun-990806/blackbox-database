@@ -127,6 +127,7 @@ const load_problem = async (problem_url) => {
     driver_options.addArguments('--headless')
     driver_options.addArguments('--disable-gpu')
     driver_options.addArguments('--no-sandbox')
+    driver_options.setChromeBinaryPath(process.env.GOOGLE_CHROME_BIN)
     const driver = new selenium.Builder().forBrowser('chrome').setChromeOptions(driver_options).build()
     try {
         await driver.get(problem_url)
