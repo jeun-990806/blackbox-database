@@ -33,9 +33,10 @@ const controllers = {
 
 const crawling_test = require('./test')
 
-app.listen(4040);
+let port = process.env.PORT
+if(port === null || port === '') port = 4040
 
-
+app.listen(port)
 
 app.use('/problem/load/', controllers.testcase.search)
 

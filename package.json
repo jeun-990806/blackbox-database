@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon index.js"
+    "start": "node index.js"
   },
   "repository": {
     "type": "git",
@@ -13,6 +13,9 @@
   },
   "author": "return-zero",
   "license": "ISC",
+  "engines": {
+    "node": "16.14.2"
+  },
   "bugs": {
     "url": "https://github.com/jeun-990806/blackbox-database/issues"
   },
