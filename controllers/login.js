@@ -14,18 +14,13 @@ module.exports.renderer = (request, response) => {
     }
 }
 
-module.exports.set_login = async (request, response) => {
+module.exports.set_login = (request, response) => {
     account.findOne({email: request.body.email}, (error, account_info) => {
         if(account_info){
             bcrypt.compare(request.body.password, account_info.password, (error, result) => {
                 if(result) {
                     request.session.email = request.body.email
-                    request.session.save((error) => {
-                        // usually, redirect() executed before other actions(saving new session data, etc) done.
-                        // because redirection is asynchronous function.
-                        // so, to ensure that functions are executed in order, we have to use the callback function.
-                        return response.redirect('/index')
-                    })
+                    return response.redirect('/index')
                 } else response.redirect('/login/2')
             })
         }else response.redirect('/login/1')
