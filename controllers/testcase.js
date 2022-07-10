@@ -113,20 +113,13 @@ module.exports.remove = (request, response) => {
 }
 
 const load_problem = async (problem_url) => {
-    const service = new chrome.ServiceBuilder(process.env.CHROMEDRIVER_PATH).build()
-    
-    try {
-        chrome.setDefaultService(service)
-    } catch (error) {
-        console.log(error)
-    }
     const driver_options = new chrome.Options()
     driver_options.addArguments('--headless')
     driver_options.addArguments('--disable-gpu')
     driver_options.addArguments('--no-sandbox')
     driver_options.addArguments('--disable-dev-shm-usage')
     driver_options.setChromeBinaryPath(process.env.GOOGLE_CHROME_BIN)
-    const driver = new selenium.Builder().forBrowser('chrome').setChromeOptions(driver_options).build()
+    const driver = new selenium.Builder().forBrowser(selenium.Browser.CHROME).setChromeOptions(driver_options).build()
     try {
         await driver.get(problem_url)
         const title = await driver.findElement(selenium.By.css('#problem_title')).getText()
