@@ -2,7 +2,7 @@
 테스트케이스를 공유하면서 내 풀이의 문제점을 살펴보아요. 😎
 
 * [사이트 주소](https://blackbox-database.herokuapp.com/)
-* [개발 일지]()
+* [개발 일지](https://jeun-990806.github.io/project_blackbox-database/)
 ---
 ## 기능
 * URL로 알고리즘 트레이닝 사이트들의 문제를 검색할 수 있습니다.
